@@ -1,5 +1,6 @@
 import TestComponent from '@/components/ui/TestComponent';
 import { useState } from 'react';
+import { Link } from 'react-router';
 
 type AgeProps = {
   age?: number;
@@ -18,6 +19,11 @@ export default function Home({ age = 37 }: AgeProps) {
   const [isSwitch, setisSwitch] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
   const [letter, setLetter] = useState('A');
+  const [count, setCount] = useState(0);
+
+  const increaseCount = () => {
+    setCount((count) => count + 1);
+  };
 
   const toggleSwitch = () => {
     setisSwitch(!isSwitch);
@@ -53,18 +59,33 @@ export default function Home({ age = 37 }: AgeProps) {
           Toggle State
         </button>
         <button
+          type="button"
           className="rounded bg-blue-500 px-4 py-2 text-white transition-transform hover:bg-blue-600 active:scale-95"
           onClick={cycleMessage} // Call our new function
         >
           Change Message
         </button>
         <button
+          type="button"
           className="rounded bg-blue-500 px-4 py-2 text-white transition-transform hover:bg-blue-600 active:scale-95"
           onClick={letterChange}
         >
           Change Letters
         </button>
+
+        <button
+          type="button"
+          className="rounded bg-gray-100 px-4 py-2"
+          onClick={increaseCount}
+        >
+          count number = {count}
+        </button>
       </div>
+      <ol className="flex list-decimal flex-col gap-4 text-lg underline underline-offset-5">
+        {messages.map((messages) => (
+          <li>{messages}</li>
+        ))}
+      </ol>
     </div>
   );
 }
