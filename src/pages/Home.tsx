@@ -13,7 +13,7 @@ export default function Home({ age = 37 }: AgeProps) {
   const [isSwitch, setisSwitch] = useState<boolean>(false);
   return (
     <div className="container mx-auto space-y-4 p-8">
-      <TestComponent />
+      {/* <TestComponent />
       <p className="text-muted-foreground text-xl">
         Welcome to the professional-grade React starter template. Tailwind CSS
         v4 is working!
@@ -27,10 +27,10 @@ export default function Home({ age = 37 }: AgeProps) {
         onClick={() => setisSwitch(!isSwitch)}
       >
         Toggle State
-      </button>
+      </button> */}
       <ArrayOfObjects />
-      <TestObjectStateVariable />
-      <ArrayStateVariables />
+      {/* <TestObjectStateVariable />
+      <ArrayStateVariables /> */}
     </div>
   );
 }

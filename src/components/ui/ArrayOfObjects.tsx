@@ -1,7 +1,23 @@
 import { useState } from 'react';
 
+// Best Practice: Define the "shape" of your data with types.
+// This tells TypeScript exactly what an Employee record should contain.
+type Employee = {
+  id: string;
+  name: string;
+  age: number; // Age must always be a number in the final list.
+};
+
+// The temporary employee in the form can have a null age while the user is typing.
+type NewEmployee = {
+  id:string;
+  name: string;
+  age: number | null; // The `|` means the type can be a number OR null.
+}
+
 export default function ArrayOfObjects() {
-  const [employees, setEmployees] = useState([
+  // The list of employees uses the strict Employee type.
+  let [employees, setEmployees] = useState<Employee[]>([
     {
       id: crypto.randomUUID(),
       name: 'John',
@@ -19,20 +35,56 @@ export default function ArrayOfObjects() {
     },
   ]);
 
+  // The state for the input fields. Age starts as null.
+  let [employee, setEmployee] = useState<NewEmployee>({
+    id: crypto.randomUUID(),
+    name: '',
+    age: null,
+  });
+
+
   const addEmployee = () => {
-    setEmployees([
-      ...employees,
-      {
+    // Validation: Only add an employee if they have a name and a valid age.
+    if (employee.name && employee.age !== null) {
+      // Because we checked that age is not null, TypeScript is smart
+      // enough to know it must be a number here.
+      setEmployees([...employees, { ...employee, age: employee.age }]);
+      
+      // Good UX: Reset the form for the next entry.
+      setEmployee({
         id: crypto.randomUUID(),
         name: '',
-        age: 30,
-      },
-    ]);
+        age: null,
+      });
+    }
   };
 
   return (
     <div>
       <h1>Array of Objects</h1>
+      <input
+        type="text"
+        placeholder="Name"
+        name="name"
+        value={employee.name}
+        onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Age"
+        name="age"
+        // An input's value must be a string.
+        // If our age is null, we show an empty string. Otherwise, we show the number.
+        value={employee.age === null ? '' : employee.age}
+        onChange={(e) => {
+          const ageValue = parseInt(e.target.value);
+          // If parseInt results in NaN (e.g., from an empty or text-only string),
+          // we set our state to null. Otherwise, we use the parsed number.
+          setEmployee({ ...employee, age: isNaN(ageValue) ? null : ageValue });
+        }}
+      />
+      <button onClick={addEmployee}>Add Employee</button>
+      <button onClick={() => setEmployees([])}>Clear Employees</button>
       <p className="flex flex-wrap gap-4">
         {employees.map((employee) => (
           <div key={employee.id}>
@@ -44,7 +96,7 @@ export default function ArrayOfObjects() {
       <ol className="list-decimal">
         {employees.map((employee) => (
           <li key={employee.id}>
-            Name: {employee.name}Age: ({employee.age}){' '}
+            Name: {employee.name} Age: ({employee.age}){' '}
           </li>
         ))}
       </ol>
@@ -53,7 +105,6 @@ export default function ArrayOfObjects() {
           <p key={emp.id}> Name: {emp.name}</p>
         ))}
       </p>
-      <div className="flex flex-col gap-2"></div>
     </div>
   );
 }
