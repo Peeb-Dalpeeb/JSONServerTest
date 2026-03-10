@@ -10,10 +10,10 @@ type Employee = {
 
 // The temporary employee in the form can have a null age while the user is typing.
 type NewEmployee = {
-  id:string;
+  id: string;
   name: string;
   age: number | null; // The `|` means the type can be a number OR null.
-}
+};
 
 export default function ArrayOfObjects() {
   // The list of employees uses the strict Employee type.
@@ -42,14 +42,13 @@ export default function ArrayOfObjects() {
     age: null,
   });
 
-
   const addEmployee = () => {
     // Validation: Only add an employee if they have a name and a valid age.
     if (employee.name && employee.age !== null) {
       // Because we checked that age is not null, TypeScript is smart
       // enough to know it must be a number here.
       setEmployees([...employees, { ...employee, age: employee.age }]);
-      
+
       // Good UX: Reset the form for the next entry.
       setEmployee({
         id: crypto.randomUUID(),
