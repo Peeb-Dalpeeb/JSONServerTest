@@ -18,6 +18,18 @@ export default function ArrayOfObjects() {
       age: 40,
     },
   ]);
+
+  const addEmployee = () => {
+    setEmployees([
+      ...employees,
+      {
+        id: crypto.randomUUID(),
+        name: '',
+        age: 30,
+      },
+    ]);
+  };
+
   return (
     <div>
       <h1>Array of Objects</h1>
@@ -38,9 +50,10 @@ export default function ArrayOfObjects() {
       </ol>
       <p>
         {employees.map((emp) => (
-          <p key={emp.id}>  Name: {emp.name}</p>
+          <p key={emp.id}> Name: {emp.name}</p>
         ))}
       </p>
+      <div className="flex flex-col gap-2"></div>
     </div>
   );
 }
