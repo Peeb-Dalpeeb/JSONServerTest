@@ -1,7 +1,9 @@
 import ArrayOfObjects from '@/components/ui/ArrayOfObjects';
 import ArrayStateVariables from '@/components/ui/ArrayStateVariables';
+import ProductCrudOpperations from '@/components/ui/ProductCrudOpperations';
 import TestComponent from '@/components/ui/TestComponent';
 import TestObjectStateVariable from '@/components/ui/TestObjectStateVariable';
+
 import { useState } from 'react';
 
 type AgeProps = {
@@ -28,9 +30,10 @@ export default function Home({ age = 37 }: AgeProps) {
       >
         Toggle State
       </button> */}
-      <ArrayOfObjects />
+      {/* <ArrayOfObjects /> */}
       {/* <TestObjectStateVariable />
       <ArrayStateVariables /> */}
+      <ProductCrudOpperations />
     </div>
   );
 }
