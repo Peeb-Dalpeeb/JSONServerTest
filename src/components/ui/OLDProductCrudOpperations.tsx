@@ -7,6 +7,11 @@ export default function ProductCrudOperations() {
   // The `id` is removed from the initial state for the form, as it's no longer needed there.
   const [item, setItem] = useState({ name: '', price: '', url: '' });
 
+  // This state is for the product being edited
+  const [editingProduct, setEditingProduct] = useState<ProductState | null>(
+    null
+  );
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // We no longer need to specify the type here, TypeScript can infer it.
@@ -37,8 +42,94 @@ export default function ProductCrudOperations() {
     setProducts((prev) => prev.filter((product) => product.id !== idToDelete));
   };
 
+  // When the "Update" button is clicked, this will run
+  const handleUpdate = (product: ProductState) => {
+    setEditingProduct(product); // Set the product to be edited
+  };
+
+  // When the form in the popup is submitted, this will run
+  const handleUpdateSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingProduct) return;
+
+    // VALIDATION: Check if any of the required fields are empty.
+    if (
+      !editingProduct.name ||
+      !editingProduct.price ||
+      !editingProduct.url
+    ) {
+      alert('Please fill out all fields before saving.');
+      return;
+    }
+
+    // Find the product in the array and update it
+    setProducts((prev) =>
+      prev.map((p) => (p.id === editingProduct.id ? editingProduct : p))
+    );
+
+    setEditingProduct(null); // Close the popup
+  };
+
   return (
-    <div>
+    <div className=''>
+      {/* This is the update popup */}
+      {editingProduct && (
+        <div className="fixed inset-0 z-50 flex items-center bg-gray-800/50 justify-center">
+          <div className="rounded-lg bg-white p-8 shadow-lg">
+            <h2 className="text-xl font-bold">Update Product</h2>
+            <form onSubmit={handleUpdateSubmit} className="mt-4 flex flex-col gap-3">
+              <input
+                type="text"
+                className="rounded border p-2"
+                name="name"
+                placeholder="Name"
+                value={editingProduct.name}
+                onChange={(e) =>
+                  setEditingProduct({ ...editingProduct, name: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="rounded border p-2"
+                name="price"
+                placeholder="Price"
+                value={editingProduct.price}
+                onChange={(e) =>
+                  setEditingProduct({
+                    ...editingProduct,
+                    price: e.target.value,
+                  })
+                }
+              />
+              <input
+                type="text"
+                className="rounded border p-2"
+                name="url"
+                placeholder="URL"
+                value={editingProduct.url}
+                onChange={(e) =>
+                  setEditingProduct({ ...editingProduct, url: e.target.value })
+                }
+              />
+              <div className="mt-4 flex justify-end gap-4">
+                <button
+                  className="rounded bg-gray-300 px-4 py-2 text-black hover:bg-gray-400 active:scale-95"
+                  type="button"
+                  onClick={() => setEditingProduct(null)} // Close the popup
+                >
+                  Cancel
+                </button>
+                <button
+                  className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 active:scale-95"
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
       <h1>Product CRUD Operations</h1>
       <form onSubmit={handleSave} className="mt-4 flex flex-col gap-3">
         <input
@@ -88,9 +179,8 @@ export default function ProductCrudOperations() {
               <p className="mt-2 text-gray-600">${I.price}</p>
               <p className="mt-2 text-sm text-gray-400">ID: {I.id}</p>
               <button
-                onClick={() => deleteProduct(I.id)}
+                onClick={() => handleUpdate(I)} // This will open the popup
                 type="button"
-                value="delete"
                 className="mt-4 rounded bg-blue-200 px-4 py-2 text-white hover:bg-blue-500 active:scale-95"
               >
                 Update
