@@ -40,9 +40,10 @@ export default function ProductCrudOperations() {
   return (
     <div>
       <h1>Product CRUD Operations</h1>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSave} className="mt-4 flex flex-col gap-3">
         <input
           type="text"
+          className="rounded border p-2"
           name="name"
           placeholder="Name"
           value={item.name}
@@ -50,6 +51,7 @@ export default function ProductCrudOperations() {
         />
         <input
           type="text"
+          className="rounded border p-2"
           name="price"
           placeholder="Price"
           value={item.price}
@@ -57,6 +59,7 @@ export default function ProductCrudOperations() {
         />
         <input
           type="text"
+          className="rounded border p-2"
           name="url"
           placeholder="URL"
           value={item.url}
@@ -87,6 +90,15 @@ export default function ProductCrudOperations() {
               <button
                 onClick={() => deleteProduct(I.id)}
                 type="button"
+                value="delete"
+                className="mt-4 rounded bg-blue-200 px-4 py-2 text-white hover:bg-blue-500 active:scale-95"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => deleteProduct(I.id)}
+                type="button"
+                value="delete"
                 className="mt-4 rounded bg-red-200 px-4 py-2 text-white hover:bg-red-500 active:scale-95"
               >
                 Delete
