@@ -1,6 +1,7 @@
 import ArrayOfObjects from '@/components/ui/ArrayOfObjects';
 import ArrayStateVariables from '@/components/ui/ArrayStateVariables';
 import OLDProductCrudOpperations from '@/components/ui/OLDProductCrudOpperations';
+import PrioductOperations from '@/components/ui/PrioductOperations';
 import ProductCrudOpperations from '@/components/ui/ProductCrudOpperations';
 import TestComponent from '@/components/ui/TestComponent';
 import TestObjectStateVariable from '@/components/ui/TestObjectStateVariable';
@@ -34,7 +35,8 @@ export default function Home({ age = 37 }: AgeProps) {
       {/* <ArrayOfObjects /> */}
       {/* <TestObjectStateVariable />
       <ArrayStateVariables /> */}
-      <OLDProductCrudOpperations/>
+      {/* <OLDProductCrudOpperations/> */}
+      <PrioductOperations />
     </div>
   );
 }

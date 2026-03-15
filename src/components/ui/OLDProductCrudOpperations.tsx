@@ -71,7 +71,7 @@ export default function ProductCrudOperations() {
   };
 
   return (
-    <div className=''>
+    <div>
       {/* This is the update popup */}
       {editingProduct && (
         <div className="fixed inset-0 z-50 flex items-center bg-gray-800/50 justify-center">

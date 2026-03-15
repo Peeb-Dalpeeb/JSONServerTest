@@ -1,19 +1,40 @@
 {
-  "students": [
+  "products": [
     {
-      "id": "2",
-      "name": "Alex Smith",
-      "course": "Advanced Senior Developer"
+      "pname": "Smart Watch",
+      "price": 4500,
+      "qty": 20,
+      "id": "015e"
     },
     {
-      "id": "3",
-      "name": "Charlie Brown",
-      "course": "UI/UX Design"
+      "pname": "Bluetooth Speaker",
+      "price": 3000,
+      "qty": 18,
+      "id": "63cf"
     },
     {
-      "id": "f743",
-      "name": "Bruno Explorer",
-      "course": "API Testing"
+      "pname": "USB Pen Drive",
+      "price": 600,
+      "qty": 60,
+      "id": "461b"
+    },
+    {
+      "pname": "Webcam",
+      "price": 2800,
+      "qty": 12,
+      "id": "afb2"
+    },
+    {
+      "id": "fa7e",
+      "pname": "Pen Drive",
+      "price": 1300,
+      "qty": 50
+    },
+    {
+      "pname": "Kindle",
+      "price": "1234",
+      "qty": "2000",
+      "id": "2777"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
